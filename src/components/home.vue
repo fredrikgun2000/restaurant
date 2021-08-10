@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<div class="lapis1">
-			<video autoplay muted loop src="@/assets/video/bg1.mp4">
+		<div class="lapis1home">
+			<video class="videohome" autoplay muted loop src="@/assets/video/bg1.mp4">
 			</video>
 		</div>
-		<div class="header1">
+		<div class="header1home">
 			<div class="container kontenheader changenavbar">
 				<div class="row">
 					<div class="col-lg-6">
@@ -259,26 +259,22 @@
 </script>
 
 <style>
-	*{
-		box-sizing: border-box;
-		margin: 0;
-		padding: 0;
-	}
+	
 
-	video{
+	.videohome{
 		width: 100%;
 		height: 600px;
 		object-fit: cover; 
 	}
 
-	.lapis1{
+	.lapis1home{
 		position: absolute;
 		top: 0;
 		z-index: 1;
 		width: 100%;
 	}
 
-	.lapis1::after{
+	.lapis1home::after{
 		content: '';
 		display: inline-block;
 		background-color: rgba(0,0,0,0.4);
@@ -289,7 +285,7 @@
 		left: 0;
 	}
 
-	.header1{
+	.header1home{
 		height: 600px;
 		width: 100%;
 		position: relative;
