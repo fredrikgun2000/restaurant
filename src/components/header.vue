@@ -1,5 +1,5 @@
 <template>
-	<div class="b-navbar">
+	<div class="b-navbar" id="navbar">
 		<b-navbar toggleable="lg" type="dark" variant="" class="container-fluid">
 		    <b-navbar-brand href="#">FutureLand</b-navbar-brand>
 
@@ -7,13 +7,23 @@
 
 		    <b-collapse id="nav-collapse" is-nav>
 		      <b-navbar-nav>
-		        <b-nav-item href="#">Home</b-nav-item>
+		        <b-nav-item href="#">
+		        	<router-link to="/" class="a_home">Home</router-link>
+		        </b-nav-item>
 
-		        <b-nav-item-dropdown text="Feature" right>
-		        <b-dropdown-item href="#">EN</b-dropdown-item>
-			        <b-dropdown-item href="#">ES</b-dropdown-item>
-			        <b-dropdown-item href="#">RU</b-dropdown-item>
-			        <b-dropdown-item href="#">FA</b-dropdown-item>
+		        <b-nav-item-dropdown text="Service" right>
+		        <b-dropdown-item href="#">
+		        	<router-link to="/menu" class="text-dark">Menu</router-link>
+		        </b-dropdown-item>
+		        <b-dropdown-item href="#">
+		        	<router-link to="/tbooking" class="text-dark">Table Booking</router-link>
+		        </b-dropdown-item>
+		        <b-dropdown-item href="#">
+		        	<router-link to="/dilivery" class="text-dark">Dilivery</router-link>
+		        </b-dropdown-item>
+		        <b-dropdown-item href="#">
+		        	<router-link to="/schedule" class="text-dark">Schedule</router-link>
+		        </b-dropdown-item>
 		      </b-nav-item-dropdown>
 
 		      </b-navbar-nav>
@@ -29,6 +39,16 @@
 </script>
 
 <style>
+	a{
+		text-decoration: none !important;
+	}
+
+	.a_home{
+		color: white !important;
+	}
+
+
+
 	.b-navbar{
 		color: white;
 		position: fixed;
@@ -37,8 +57,14 @@
 		z-index: 4;
 	}
 
-	::-webkit-scrollbar {
-      width: 1px;
-    }
+	.dropdown-item{
+		color: black !important;
+	}
+
+	.dropdown-item:hover{
+		background-color: #bb86fc !important;
+	}
+
+	
 </style>
 

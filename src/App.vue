@@ -21,7 +21,16 @@
 </script>
 
 <style>
+  #app{
+
+    background-color: #121212;
+    color: white;
+  }
   main{
     min-height: 700px;
   }
+
+  ::-webkit-scrollbar {
+      width: 0px;
+    }
 </style>
