@@ -19,9 +19,6 @@
 		        	<router-link to="/tbooking" class="text-dark">Table Booking</router-link>
 		        </b-dropdown-item>
 		        <b-dropdown-item href="#">
-		        	<router-link to="/dilivery" class="text-dark">Dilivery</router-link>
-		        </b-dropdown-item>
-		        <b-dropdown-item href="#">
 		        	<router-link to="/schedule" class="text-dark">Schedule</router-link>
 		        </b-dropdown-item>
 		      </b-nav-item-dropdown>
@@ -34,7 +31,17 @@
 
 <script>
 	export default{
-
+		created: function () {
+			window.onscroll = function() {
+				if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+		  		document.getElementById("navbar").style.padding = "5px 10px";
+		  		document.getElementById("navbar").style.backgroundColor = '#121212';
+			  } else {
+			    document.getElementById("navbar").style.padding = "0px 10px";
+			    document.getElementById("navbar").style.backgroundColor = 'rgba(0,0,0,0)';
+			  }
+			};
+		}
 	}
 </script>
 
@@ -47,7 +54,9 @@
 		color: white !important;
 	}
 
-
+	nav{
+		width: 100% !important;
+	}
 
 	.b-navbar{
 		color: white;
@@ -55,6 +64,7 @@
 		top: 0;
 		left: 0;
 		z-index: 4;
+		width: 100%;
 	}
 
 	.dropdown-item{

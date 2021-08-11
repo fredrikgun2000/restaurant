@@ -36,6 +36,15 @@
     min-height: 700px;
   }
 
+  button{
+    background-color: #BB86FC;
+    color: white;
+  }
+
+  button:hover{
+    background-color: #9A77CF;
+  }
+
   ::-webkit-scrollbar {
       width: 0px;
     }
