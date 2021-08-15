@@ -36,12 +36,12 @@
     min-height: 700px;
   }
 
-  button{
+  .button{
     background-color: #BB86FC;
     color: white;
   }
 
-  button:hover{
+  .button:hover{
     background-color: #9A77CF;
   }
 

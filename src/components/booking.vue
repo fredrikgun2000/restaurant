@@ -50,16 +50,157 @@
 				</div>
 				<div class="row my-5">
 					<div class="col-lg-4 mx-auto text-center">
-						<button class="btn-order">Order Table</button>
+						<button class="btn-order button" v-b-modal.modal-prevent-closing>Order Table</button>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<b-modal id="modal-prevent-closing" ref="modal" @show="resetModal" @hidden="resetModal" @ok="handleOk">
+			<form ref="form" @submit.stop.prevent="handleSubmit" enctype="multipart/form-data" method="POST">
+				<b-form-group label="ID Card Citizen" label-for="idc-input" invalid-feedback="id card is required" :state="idcState">
+				  <b-form-input id="idc-input" v-model="idc"
+				    :state="idcState" required class="my-2"></b-form-input>
+				</b-form-group>
+
+				<b-form-group label="Your Name" label-for="nama-input" invalid-feedback="name is required" :state="namaState">
+				  <b-form-input id="nama-input" v-model="nama"
+				    :state="namaState" required class="my-2"></b-form-input>
+				</b-form-group>
+
+				<b-form-group label="Your Email" label-for="email-input" invalid-feedback="Email is required" :state="emailState">
+				  <b-form-input id="email-input" v-model="email"
+				    :state="emailState" required class="my-2"></b-form-input>
+				</b-form-group>
+
+				<b-form-group label="Phone Number" type="password" label-for="phone-input" invalid-feedback="phone number is required" :state="hpState">
+				  <b-form-input id="phone-input" v-model="hp"
+				    :state="hpState" required class="my-2"></b-form-input>
+				</b-form-group>
+
+				<b-form-group label="ID Card Photo" label-for="photo-input" invalid-feedback="photo is required" :state="photoState">
+				  <b-form-file id="photo-input" v-model="photo" @change="onfileselected"
+				    :state="photoState" required class="my-2">
+				    </b-form-file>
+				</b-form-group>
+				<img :src="pri" width="100">
+			</form>
+	    </b-modal>
 	</div>
 </template>
 
-<script></script>
+<script>
+	import axios from 'axios'
+	export default{
+		data: function () {
+		    return {
+		    	idc: '',
+		        idcState: null,
+		    	nama: '',
+		        namaState: null,
+		    	email: '',
+		        emailState: null,
+		    	hp: '',
+		        hpState: null,
+		    	photo: null,
+		        photoState: null,
+		        select:null,
+		        pri:'',
+		        submittedNames: [],
+		    }
+		},
+		methods: {
+			checkFormValidity() {
+	        const valid = this.$refs.form.checkValidity()
+	        this.idcState = valid
+	        this.namaState = valid
+	        this.emailState = valid
+	        this.hpState = valid
+	        this.photoState = valid
+	        return valid
+	      },
+	      resetModal() {
+		    	this.idc = ''
+		        this.idcState = null
+		    	this.nama = ''
+		        this.namaState = null
+		    	this.email = ''
+		        this.emailState = null
+		    	this.hp = ''
+		        this.hpState = null
+		    	this.photo = ''
+		    	this.pri = ''
+		        this.photoState = null
+	      },
+	      handleOk(bvModalEvt) {
+	        bvModalEvt.preventDefault()
+	        this.handleSubmit()
+	      },
+	      onfileselected(event){
+	      	this.select = event.target.files[0];
+	      	this.pri = URL.createObjectURL(this.select);
+	      },
+	      handleSubmit() {
+	        if (!this.checkFormValidity()) {
+	          return
+	        }
+
+	        let data = new FormData();
+	        data.append('idc', this.idc);
+	        data.append('nama', this.nama);
+	        data.append('email', this.email);
+	        data.append('hp', this.hp);
+	        data.append('idp', this.select);
+	        console.log(this.select)
+
+	        axios({
+			  method: 'post',
+			  url: 'http://localhost:8000/api/booking/post',
+			  data: data,
+			});
+
+	        this.$nextTick(() => {
+	          this.$bvModal.hide('modal-prevent-closing')
+	        })
+	      }
+		}
+	}
+</script>
 <style>
+	.modal-footer{
+		border: none !important;
+	}
+
+	.modal-header{
+		border: none !important;
+	}
+
+	input{
+		background-color: rgba(0,0,0,0) !important;
+		color: white !important;
+		border: 0.1 solid white !important;
+	}
+
+	.modal-content{
+		background-color: #121212 !important;
+		color:white;
+	}
+
+	.btn-secondary{
+		background-color: rgba(0,0,0,0) !important;
+		border: none !important;
+	}
+
+	.btn-primary{
+		background-color: #BB86FC !important;
+	}
+
+	.close{
+		background-color: rgba(0,0,0,0);
+		border: none;
+		color: black;
+	}
+
 	video{
 		width: 100%;
 		height: 300px;
