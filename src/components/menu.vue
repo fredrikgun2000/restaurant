@@ -24,42 +24,68 @@
 						</select>
 					</div>
 				</div>
+				<div v-for="d in data" v-bind:key = "d.id">
 				<div class="row my-4">
 					<div class="col-lg-4 text-center">
 						<img src="@/assets/img/develope/sabun_gastro-1.jpeg">
 					</div>
 					<div class="col-lg-8">
-						<h3>Lorem ipsum dolor</h3>
-						<b style="background-color: #e2a76f;">Appetizer</b>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						<h3> {{ d.nama }} </h3>
+						<b v-bind:style = "style">{{ d.jenis }}</b>
+						<p>{{ d.deskripsi }}</p>
 					</div>
 				</div>
-				<div class="row my-4">
-					<div class="col-lg-4 text-center">
-						<img src="@/assets/img/develope/sabun_gastro-1.jpeg">
-					</div>
-					<div class="col-lg-8">
-						<h3>Lorem ipsum dolor</h3>
-						<b style="background-color: #71c62b;">Main Course</b>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					</div>
-				</div>
-				<div class="row my-4">
-					<div class="col-lg-4 text-center">
-						<img src="@/assets/img/develope/sabun_gastro-1.jpeg">
-					</div>
-					<div class="col-lg-8">
-						<h3>Lorem ipsum dolor</h3>
-						<b style="background-color: #0073ff;">Desert</b>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					</div>
-				</div>
+			</div>
 			</div>
 		</div>
 	</div>
 </template>
 
-<script></script>
+<script>
+	import axios from 'axios'
+	// import $ from 'jquery'
+
+	export default{
+		data: function () {
+		    return {
+		    	data : undefined,
+		    	style : {
+		    		backgroundColor : ''
+		    	}
+		    }
+		},
+		created: function () {
+			this.MenuShow();
+		},
+		methods: {
+			MenuShow(){
+				axios({
+				  method: 'get',
+				  url: 'http://localhost:8000/api/menu/show',
+				}).then(
+					(response) => {
+						this.data = response.data.data;
+						this.data.forEach((item) => {
+							switch (item.jenis){
+								case 'Appetizer':
+									this.style.backgroundColor = '#e2a76f';
+									break;
+								case 'Main Course':
+									this.style.backgroundColor = '#71c62b';
+									break;
+								case 'Dessert':
+									this.style.backgroundColor = '#0073ff';
+									break;
+								default:
+									console.log('a');
+							}
+						});
+					} 
+				);
+			}
+		}
+	}
+</script>
 <style>
 	video{
 		width: 100%;
